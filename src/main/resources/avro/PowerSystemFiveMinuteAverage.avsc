@@ -1,0 +1,36 @@
+{
+  "type": "record",
+  "name": "PowerSystemFiveMinuteAverage",
+  "namespace": "dk.powersystem.avro",
+  "doc": "Arithmetic averages over five completed UTC minutes, emitted once per minute while running.",
+  "fields": [
+    {
+      "name": "windowStart",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Inclusive lower boundary in UTC epoch milliseconds."
+    },
+    {
+      "name": "windowEnd",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Exclusive upper boundary in UTC epoch milliseconds."
+    },
+    {
+      "name": "average",
+      "type": {
+        "type": "map",
+        "values": [
+          "null",
+          "double"
+        ]
+      },
+      "default": {},
+      "doc": "Mean of non-null samples for each API metric; source units are retained. Null means no available values."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "type": "record",
+  "name": "PowerSystemReading",
+  "namespace": "dk.powersystem.avro",
+  "doc": "One nationwide PowerSystemRightNow reading. Identity is the UTC measurement minute.",
+  "fields": [
+    {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Minutes1UTC as Unix epoch milliseconds; always a full UTC minute."
+    },
+    {
+      "name": "measurements",
+      "type": {
+        "type": "map",
+        "values": [
+          "null",
+          "double"
+        ]
+      },
+      "default": {},
+      "doc": "API metric names and nullable values. CO2Emission uses g/kWh; all other current metrics use MW. Zero and negative values are preserved."
+    }
+  ]
+}
