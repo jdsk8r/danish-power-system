@@ -55,7 +55,7 @@ class ApiPoller(private val config: AppConfig) : AutoCloseable {
             val oldestRetainedTimestamp = Instant.now().minus(Duration.ofMinutes(15))
             acknowledgedReadings.keys.removeIf { it.isBefore(oldestRetainedTimestamp) }
             logger.info("Fetched {} readings; published {} new or changed readings", readings.size, publishedCount)
-        } catch (interrupted: InterruptedException) {
+        } catch (_: InterruptedException) {
             Thread.currentThread().interrupt()
         } catch (exception: Exception) {
             logger.error("Polling failed; will retry on the next scheduled poll", exception)
