@@ -2,7 +2,7 @@
   "type": "record",
   "name": "PowerSystemReading",
   "namespace": "dk.powersystem.avro",
-  "doc": "One nationwide PowerSystemRightNow reading. Identity is the UTC measurement minute.",
+  "doc": "One PowerSystemRightNow reading. Identity is the UTC measurement minute.",
   "fields": [
     {
       "name": "timestamp",

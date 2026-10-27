@@ -45,7 +45,7 @@ class MultiPartitionTopologyIntegrationTest {
 
     @Test
     @Timeout(180)
-    fun `three raw partitions produce one complete nationwide average per minute`() {
+    fun `three raw partitions produce one complete average per minute`() {
         val topicPrefix = "partition-regression-" + UUID.randomUUID()
         val config = AppConfig.fromEnvironment().copy(
             rawTopic = "$topicPrefix-raw",
@@ -67,7 +67,7 @@ class MultiPartitionTopologyIntegrationTest {
                 assertThat(admin.describeTopics(listOf(config.rawTopic)).allTopicNames()
                     .get(20, TimeUnit.SECONDS).getValue(config.rawTopic).partitions()).hasSize(3)
 
-                verifyNationwideAverage(config)
+                verifyAverageAcrossPartitions(config)
             } finally {
                 val temporaryTopics = admin.listTopics().names().get(20, TimeUnit.SECONDS)
                     .filter { it.startsWith("$topicPrefix-") }
@@ -84,7 +84,7 @@ class MultiPartitionTopologyIntegrationTest {
         }
     }
 
-    private fun verifyNationwideAverage(config: AppConfig) {
+    private fun verifyAverageAcrossPartitions(config: AppConfig) {
         PowerAvro.serde(config).use { valueSerde ->
             val producerProperties = Properties().apply {
                 put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, config.bootstrapServers)
